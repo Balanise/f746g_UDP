@@ -9,6 +9,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include UDP/Src/subdir.mk
 -include Middlewares/LwIP/subdir.mk
 -include LWIP/Target/subdir.mk
 -include LWIP/App/subdir.mk

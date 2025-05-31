@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "udp_sender.h"
 
 /* USER CODE END Includes */
 
@@ -95,16 +96,19 @@ int main(void)
   MX_USART1_UART_Init();
   MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
+  int i = 0;
+  char msg[32];
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+  while (1){
+	  MX_LWIP_Process();
+	  sprintf(msg, "Counter: %d", i);
+	  udp_send_packet(msg);
+	  i++;
+	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
