@@ -65,8 +65,7 @@ static void MPU_Config(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
-{
+int main(void){
 
   /* USER CODE BEGIN 1 */
 
@@ -98,6 +97,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   int i = 0;
   char msg[32];
+  uint32_t last_tick = 0;
 
   /* USER CODE END 2 */
 
@@ -105,10 +105,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1){
 	  MX_LWIP_Process();
-	  sprintf(msg, "Counter: %d", i);
-	  udp_send_packet(msg);
-	  i++;
-	  HAL_Delay(1000);
+	  if ((HAL_GetTick() - last_tick) >= 1000) {
+		  last_tick = HAL_GetTick();
+	      sprintf(msg, "Counter: %d\n", i++);
+	      udp_send_packet(msg);
+	  }
   }
   /* USER CODE END 3 */
 }
